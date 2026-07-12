@@ -1,11 +1,12 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { KeyRound, Globe, Moon, Sun } from 'lucide-react';
+import { KeyRound, Globe, Moon, Sun, Menu, X } from 'lucide-react';
 import { useUIStore } from '@/store/uiStore';
 import { useAuthStore } from '@/store/authStore';
 import { useTranslation } from 'react-i18next';
 
 export const PublicLayout = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const { theme, language, toggleTheme, setLanguage } = useUIStore();
   const { isAuthenticated } = useAuthStore();
   
@@ -45,11 +46,34 @@ export const PublicLayout = () => {
                 {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </button>
 
-              <Link to={isAuthenticated ? "/app/dashboard" : "/login"} className="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+              <Link to={isAuthenticated ? "/app/dashboard" : "/login"} className="hidden sm:inline-flex bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg font-medium transition-colors">
                 {isAuthenticated ? t('nav.dashboard') : t('public.login')}
               </Link>
+              
+              <button 
+                className="md:hidden p-2 -mr-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
             </div>
           </div>
+          
+          {/* Mobile Menu Dropdown */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-800 space-y-4">
+              <Link to="/vehicles" onClick={() => setIsMobileMenuOpen(false)} className="block px-2 text-base font-medium text-gray-600 dark:text-gray-300">{t('public.vehicles')}</Link>
+              <Link to="/offers" onClick={() => setIsMobileMenuOpen(false)} className="block px-2 text-base font-medium text-gray-600 dark:text-gray-300">{t('public.offers')}</Link>
+              <Link to="/branches" onClick={() => setIsMobileMenuOpen(false)} className="block px-2 text-base font-medium text-gray-600 dark:text-gray-300">{t('public.branches')}</Link>
+              <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="block px-2 text-base font-medium text-gray-600 dark:text-gray-300">{t('public.about')}</Link>
+              
+              <div className="pt-4 border-t border-gray-200 dark:border-gray-800 sm:hidden">
+                <Link to={isAuthenticated ? "/app/dashboard" : "/login"} onClick={() => setIsMobileMenuOpen(false)} className="block w-full text-center bg-blue-800 hover:bg-blue-900 text-white px-4 py-3 rounded-lg font-medium">
+                  {isAuthenticated ? t('nav.dashboard') : t('public.login')}
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 
