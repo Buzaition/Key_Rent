@@ -4,6 +4,9 @@ import { Button } from '@/components/ui/Button';
 import { CarFront, MapPin, Calendar, Search } from 'lucide-react';
 import { Input } from '@/components/ui/Input';
 import { useTranslation } from 'react-i18next';
+import nissanSunnyImg from '@/assets/vehicles/nissan_sunny.jpg';
+import toyotaCamryImg from '@/assets/vehicles/toyota_camry.jpg';
+import kiaSportageImg from '@/assets/vehicles/kia_sportage.jpg';
 
 export const Home = () => {
   const { t } = useTranslation();
@@ -77,9 +80,9 @@ export const Home = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { cat: 'Economy', name: 'Nissan Sunny', price: 120, img: 'https://images.unsplash.com/photo-1590362891945-208194c1f964?auto=format&fit=crop&q=80&w=600' },
-              { cat: 'Sedan', name: 'Toyota Camry', price: 150, img: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fd?auto=format&fit=crop&q=80&w=600' },
-              { cat: 'SUV', name: 'Nissan Patrol', price: 450, img: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=600' }
+              { cat: 'Economy', name: 'Nissan Sunny', price: 120, img: nissanSunnyImg },
+              { cat: 'Sedan', name: 'Toyota Camry', price: 150, img: toyotaCamryImg },
+              { cat: 'SUV', name: 'Kia Sportage', price: 450, img: kiaSportageImg }
             ].map((v, i) => (
               <div key={i} className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-shadow">
                 <div className="h-48 overflow-hidden">
